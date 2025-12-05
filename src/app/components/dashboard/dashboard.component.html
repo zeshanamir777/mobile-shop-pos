@@ -1,0 +1,121 @@
+<div class="space-y-6">
+  <div class="flex justify-between items-center">
+    <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+    <a
+      routerLink="/pos"
+      class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold"
+    >
+      New Sale
+    </a>
+  </div>
+
+  <div *ngIf="loading" class="text-center py-12">
+    <p class="text-gray-500">Loading dashboard...</p>
+  </div>
+
+  <div *ngIf="!loading">
+    <!-- Today's Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+      <div class="bg-white rounded-xl shadow p-6 border-l-4 border-blue-500">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Today's Sales</p>
+            <p class="text-2xl font-bold text-gray-900">
+              {{ todayReport ? formatCurrency(todayReport.totalSales) : 'PKR 0.00' }}
+            </p>
+          </div>
+          <div class="text-4xl">💰</div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow p-6 border-l-4 border-green-500">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Today's Profit</p>
+            <p class="text-2xl font-bold text-gray-900">
+              {{ todayReport ? formatCurrency(todayReport.totalProfit) : 'PKR 0.00' }}
+            </p>
+          </div>
+          <div class="text-4xl">📈</div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow p-6 border-l-4 border-red-500">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Today's Expenses</p>
+            <p class="text-2xl font-bold text-gray-900">
+              {{ todayReport ? formatCurrency(todayReport.totalExpenses) : 'PKR 0.00' }}
+            </p>
+          </div>
+          <div class="text-4xl">💸</div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow p-6 border-l-4 border-purple-500">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Net Earnings</p>
+            <p class="text-2xl font-bold" [class.text-green-600]="todayReport?.netEarnings >= 0" [class.text-red-600]="todayReport?.netEarnings < 0">
+              {{ todayReport ? formatCurrency(todayReport.netEarnings) : 'PKR 0.00' }}
+            </p>
+          </div>
+          <div class="text-4xl">💵</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alerts -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Low Stock Alert -->
+      <div class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+          <span class="mr-2">⚠️</span>
+          Low Stock Alert
+        </h2>
+        <div *ngIf="lowStockProducts.length === 0" class="text-gray-500 text-center py-4">
+          No low stock items
+        </div>
+        <div *ngIf="lowStockProducts.length > 0" class="space-y-2 max-h-64 overflow-y-auto">
+          <div
+            *ngFor="let product of lowStockProducts"
+            class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg border border-yellow-200"
+          >
+            <div>
+              <p class="font-medium text-gray-900">{{ product.name }}</p>
+              <p class="text-sm text-gray-600">{{ product.brand }} - {{ product.category }}</p>
+            </div>
+            <span class="px-3 py-1 bg-yellow-200 text-yellow-800 rounded-full text-sm font-semibold">
+              Stock: {{ product.stock_quantity }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Out of Stock Alert -->
+      <div class="bg-white rounded-xl shadow p-6">
+        <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+          <span class="mr-2">🚫</span>
+          Out of Stock
+        </h2>
+        <div *ngIf="outOfStockProducts.length === 0" class="text-gray-500 text-center py-4">
+          All products in stock
+        </div>
+        <div *ngIf="outOfStockProducts.length > 0" class="space-y-2 max-h-64 overflow-y-auto">
+          <div
+            *ngFor="let product of outOfStockProducts"
+            class="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-200"
+          >
+            <div>
+              <p class="font-medium text-gray-900">{{ product.name }}</p>
+              <p class="text-sm text-gray-600">{{ product.brand }} - {{ product.category }}</p>
+            </div>
+            <span class="px-3 py-1 bg-red-200 text-red-800 rounded-full text-sm font-semibold">
+              Out of Stock
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

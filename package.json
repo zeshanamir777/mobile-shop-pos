@@ -1,12 +1,17 @@
 {
   "name": "mobile-shop-pos",
   "version": "0.0.0",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "electron": "electron .",
+    "electron:dev": "ng build && electron .",
+    "electron:build": "ng build --configuration production && electron-builder",
+    "postinstall": "electron-builder install-app-deps || @electron/rebuild"
   },
   "private": true,
   "dependencies": {
@@ -19,6 +24,7 @@
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
     "rxjs": "~7.8.0",
+    "sql.js": "^1.13.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },
@@ -26,13 +32,20 @@
     "@angular-devkit/build-angular": "^17.3.17",
     "@angular/cli": "^17.3.17",
     "@angular/compiler-cli": "^17.3.0",
+    "@electron/rebuild": "^3.7.2",
     "@types/jasmine": "~5.1.0",
+    "autoprefixer": "^10.4.22",
+    "electron": "^39.2.6",
+    "electron-builder": "^26.0.12",
+    "electron-rebuild": "^3.2.9",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.18",
     "typescript": "~5.4.2"
   }
 }

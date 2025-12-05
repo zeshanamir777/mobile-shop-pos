@@ -1,27 +1,142 @@
-# MobileShopPos
+# Mobile Shop POS System
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+A fast, offline-first desktop POS (Point of Sale) system built with Angular 17, Electron, and SQLite.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+✅ **Authentication**
+- Single Admin Login
+- PIN-based quick login
+- Auto-login on system startup
 
-## Code scaffolding
+✅ **Product & Inventory Management**
+- Add/Edit/Delete Products
+- Barcode support
+- Low stock alerts
+- Out-of-stock warnings
+- Brand and category management
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+✅ **Barcode Scanner Integration**
+- USB Barcode Scanner support (keyboard input mode)
+- Auto-focus on scan field
+- Auto-add product to cart
+- Quantity increment on duplicate scan
+- Manual barcode entry fallback
 
-## Build
+✅ **Sales & Billing (POS)**
+- Scan items to cart
+- Manual add option
+- Auto calculation (Subtotal, Discount, Total, Profit)
+- Multiple payment methods (Cash, Bank, JazzCash, EasyPaisa)
+- Save invoices
+- Cancel sale option
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+✅ **Customer Management**
+- Add/Edit/Delete Customers
+- Customer purchase history
+- Credit balance tracking
 
-## Running unit tests
+✅ **Expense Management**
+- Daily expense entry
+- Multiple expense categories
+- Monthly expense summary
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+✅ **Reports & Analytics**
+- Daily reports (Sales, Profit, Expenses, Net Earnings)
+- Monthly reports
+- Best selling products
+- Dead stock report
+- Low stock items
 
-## Running end-to-end tests
+✅ **Settings**
+- Shop name & logo configuration
+- Currency setup
+- Tax toggle
+- Database backup & restore
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Tech Stack
 
-## Further help
+- **Frontend**: Angular 17+ with Tailwind CSS
+- **Desktop**: Electron.js
+- **Database**: SQLite (better-sqlite3)
+- **State Management**: RxJS
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Installation
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Build the Angular app:
+```bash
+npm run build
+```
+
+3. Run Electron app:
+```bash
+npm run electron
+```
+
+## Development
+
+For development with hot reload:
+
+1. Start Angular dev server:
+```bash
+npm start
+```
+
+2. In another terminal, run Electron:
+```bash
+npm run electron:dev
+```
+
+## Default Login Credentials
+
+- **Username**: admin
+- **Password**: admin123
+- **PIN**: 1234
+
+## Building for Production
+
+```bash
+npm run electron:build
+```
+
+This will create distributable packages for your platform.
+
+## Database
+
+The SQLite database is automatically created in the app's user data directory:
+- **Windows**: `%APPDATA%/mobile-shop-pos/pos_database.db`
+- **macOS**: `~/Library/Application Support/mobile-shop-pos/pos_database.db`
+- **Linux**: `~/.config/mobile-shop-pos/pos_database.db`
+
+## Barcode Scanner Setup
+
+1. Connect your USB barcode scanner
+2. The scanner should be in "Keyboard Wedge" or "HID Keyboard" mode
+3. Open the POS screen
+4. The barcode input field will auto-focus
+5. Scan products - they will automatically be added to the cart
+
+## Project Structure
+
+```
+mobile-shop-pos/
+├── main.js                 # Electron main process
+├── preload.js              # Electron preload script
+├── src/
+│   ├── app/
+│   │   ├── components/     # Angular components
+│   │   ├── services/       # Business logic services
+│   │   ├── models/         # TypeScript interfaces
+│   │   └── app.routes.ts   # Routing configuration
+│   └── styles.scss         # Global styles
+└── package.json
+```
+
+## License
+
+MIT
